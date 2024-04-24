@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha Questions</title>
+    <link rel="stylesheet" href="captchastyle.css">
+</head>
+<body>
+    <div class="captcha-video-container">
+        <video id="captchaVideo" controls autoplay onended="showQuestions()">
+            <source src="{{ random_video.video_file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Questions container initially hidden -->
+    <div id="questionsContainer" style="display: none;">
+        <ul>
+            {% for question in questions %}
+            <li class="question-text">{{ question.question }}</li>
+            <li><input type="text" class="answerInput" data-answer="{{ question.answer|lower }}" required placeholder="Enter your answer"></li>
+            {% endfor %}
+        </ul>
+        <button id="submitButton">Submit Answers</button>
+    </div>
+
+    <script>
+        // Function to show questions when video ends
+        function showQuestions() {
+            document.getElementById('captchaVideo').style.display = 'none'; // Hide video
+            document.getElementById('questionsContainer').style.display = 'block'; // Show questions
+        }
+
+        // Validate user answers and redirect if correct
+        document.getElementById('submitButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+            let answerInputs = document.querySelectorAll('.answerInput');
+            let userAnswers = Array.from(answerInputs).map(input => input.value.trim().toLowerCase());
+
+            let answersMatch = false;
+            for (let i = 0; i < userAnswers.length; i++) {
+                let correctAnswers = answerInputs[i].dataset.answer.split(',').map(a => a.trim().toLowerCase());
+                if (correctAnswers.includes(userAnswers[i])) {
+                    answersMatch = true;
+                    break;
+                }
+            }
+
+            if (answersMatch) {
+                // Use history.pushState() to prevent backtraceability
+                history.pushState(null, null, window.location.pathname + "?completed=true");
+                window.location.href = "https://www.spacex.com/"; // Redirect if answers are correct
+            } else {
+                alert("Incorrect answers. Please try again."); // Show alert if answers are incorrect
+            }
+        });
+
+        // Prevent back button functionality
+        window.addEventListener('popstate', function(event) {
+            history.pushState(null, null, window.location.pathname + "?completed=true");
+        });
+
+        function checkCaptchaCompleted() {
+            return localStorage.getItem('captchaCompleted') === 'true';
+        }
+
+        if (checkCaptchaCompleted()) {
+            // Redirect to the login page
+            window.location.href = "{% url 'login' %}";
+        }
+    </script>
+</body>
+</html>

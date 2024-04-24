@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Display</title>
+    <link rel="stylesheet" href="{% static 'captchastyle.css' %}">
+</head>
+<body>
+    <div class="video-container">
+        <video autoplay muted loop>
+            <source src="{{ random_video.video_file.url }}" type="video/mp4">
+        </video>
+        <div class="btn-container">
+            <button onclick="goToQuestions()">Show Questions</button>
+        </div>
+    </div>
+
+    <script>
+        function goToQuestions() {
+            window.location.href = "{% static 'questions.html' %}"; // Redirect to questions.html
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Captcha Challenge</title>
+    <link rel="stylesheet" href="{% static 'videocaptcha/captchastyle.css' %}">
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="{% static 'images/bg.mp4' %}" type="video/mp4">
+    </video>      
+    <div class="glass-container">
+        <div class="glass-content">
+            <h2>Video Captcha Challenge</h2>
+            <br></br>
+            <p> Watch the video and answer the question below:</p>
+            <br></br>
+            <!-- Embed childcaptcha.html using an iframe -->
+            
+            {% include 'videocaptcha/childcaptcha.html' %}
+        </div>
+    </div>
+
+    <footer>
+        <p class="custom-font">&copy; 2024 VidVeri. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Prevent video overflow */
+}
+.video-container {
+    position: relative;
+    width: 100%; /* Set width to fill the screen */
+    max-width: 800px; /* Set maximum width for the video container */
+}
+.video-background {
+    width: 100%;
+    height: auto; /* Let the height adjust according to the video's aspect ratio */
+    object-fit: cover; /* Ensure video covers the container */
+}
+.btn-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.captcha-video-container {
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden; /* Ensure video does not overflow the container */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Adjust shadow as needed */
+}
+
+.captcha-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+/* Custom styles for questions */
+.question-text {
+    font-size: 16px; /* Adjust font size as needed */
+    color: #fff !important; /* Change text color to white */
+    margin-bottom: 5px; /* Add margin for spacing */
+}
